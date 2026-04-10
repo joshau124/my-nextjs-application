@@ -10,6 +10,6 @@ export default defineConfig({
     seed: "npx tsx src/seed.ts",
   },
   datasource: {
-    url: process.env["POSTGRES_URL"],
+    url: process.env["POSTGRES_URL"] ?? "",
   },
 });
