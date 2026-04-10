@@ -1,4 +1,5 @@
 import { Col, Container, Row, Table } from 'react-bootstrap';
+import { Stuff, User } from '../../generated/prisma';
 import StuffItemAdmin from '@/components/StuffItemAdmin';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
@@ -31,7 +32,7 @@ const AdminPage = async () => {
                 </tr>
               </thead>
               <tbody>
-                {stuff.map((item) => (
+                {stuff.map((item: Stuff) => (
                   <StuffItemAdmin key={item.id} {...item} />
                 ))}
               </tbody>
@@ -49,7 +50,7 @@ const AdminPage = async () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
+                {users.map((user: User) => (
                   <tr key={user.id}>
                     <td>{user.email}</td>
                     <td>{user.role}</td>
