@@ -1,5 +1,5 @@
 import { Col, Container, Row, Table } from 'react-bootstrap';
-import { Stuff, User } from '../../generated/prisma';
+import { Stuff, User } from '@prisma/client';
 import StuffItemAdmin from '@/components/StuffItemAdmin';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
