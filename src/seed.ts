@@ -1,17 +1,9 @@
 import 'dotenv/config';
 import { PrismaClient, Role, Condition } from '../src/generated/prisma';
-import { PrismaPg } from '@prisma/adapter-pg';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
-const connectionString = 
-  process.env.POSTGRES_URL
-  if (!connectionString) {
-    throw new Error('No database connection string provided in environment variables.');
-  }
-
-const adapter = new PrismaPg({connectionString});
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding the database');
@@ -28,12 +20,10 @@ async function main() {
         role,
       },
     });
-    // console.log(`  Created user: ${user.email} with role: ${user.role}`);
   });
   for (const data of config.defaultData) {
     const condition = data.condition as Condition || Condition.good;
     console.log(`  Adding stuff: ${JSON.stringify(data)}`);
-     
     await prisma.stuff.upsert({
       where: { id: config.defaultData.indexOf(data) + 1 },
       update: {},
