@@ -1,4 +1,5 @@
-import { PrismaClient, Role, Condition } from '@prisma/client';
+import 'dotenv/config';
+import { PrismaClient, Role, Condition } from '../src/generated/prisma';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
@@ -12,16 +13,13 @@ async function main() {
     console.log(`  Creating user: ${account.email} with role: ${role}`);
     await prisma.user.upsert({
       where: { email: account.email },
-      update: {
-        password,
-      },
+      update: {},
       create: {
         email: account.email,
         password,
         role,
       },
     });
-    // console.log(`  Created user: ${user.email} with role: ${user.role}`);
   });
   for (const data of config.defaultData) {
     const condition = data.condition as Condition || Condition.good;
@@ -44,4 +42,4 @@ main()
     console.error(e);
     await prisma.$disconnect();
     process.exit(1);
-  });
+});
